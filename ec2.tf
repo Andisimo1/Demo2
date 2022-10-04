@@ -26,12 +26,12 @@ resource "aws_instance" "web" {
   key_name        = var.key_name
   subnet_id	      = "${aws_subnet.private.id}"
   security_groups = [aws_security_group.Terraform.id]
-  user_data = <<EOF
-    #!/bin/bash
-    sudo apt-get update -y
-    sudo apt-get install apache2 -y
-    echo "THIS IS WEB SERVER FROM 10.0.3.0 SUBNET" > /var/www/htpd/index.html
-    EOF
+  # user_data = <<EOF
+  #   #!/bin/bash
+  #   sudo apt-get update -y
+  #   sudo apt-get install apache2 -y
+  #   echo "THIS IS WEB SERVER FROM 10.0.3.0 SUBNET" > /var/www/htpd/index.html
+  #   EOF
 
   tags = {
     Name = "Web Server 1"
@@ -47,12 +47,12 @@ resource "aws_instance" "web2" {
   key_name        = var.key_name
   subnet_id       = "${aws_subnet.private2.id}"
   security_groups = [aws_security_group.Terraform.id]
-  user_data = <<EOF
-    #!/bin/bash
-    sudo apt-get update -y
-    sudo apt-get install apache2 -y
-    echo "THIS IS WEB SERVER FROM 10.0.200.0 SUBNET" > /var/www/htpd/index.html
-    EOF
+  # user_data = <<EOF
+  #   #!/bin/bash
+  #   sudo apt-get update -y
+  #   sudo apt-get install apache2 -y
+  #   echo "THIS IS WEB SERVER FROM 10.0.200.0 SUBNET" > /var/www/htpd/index.html
+  #   EOF
 
   tags = {
     Name = "Web Server 2"
@@ -133,15 +133,15 @@ resource "aws_security_group" "bastion" {
   }
 }
 
-#create load balancer
-resource "aws_lb" "test" {
-  name               = "LoadBalancer"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.Terraform.id]
-  subnets            = [aws_subnet.private.id, aws_subnet.private2.id]
+# #create load balancer
+# resource "aws_lb" "test" {
+#   name               = "LoadBalancer"
+#   internal           = false
+#   load_balancer_type = "application"
+#   security_groups    = [aws_security_group.Terraform.id]
+#   subnets            = [aws_subnet.private.id, aws_subnet.private2.id]
 
-  tags = {
-    Name = "ALB"
-  }
-}
+#   tags = {
+#     Name = "ALB"
+#   }
+# }
